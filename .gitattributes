@@ -1,0 +1,38 @@
+# 1. Global configuration and automatic normalization
+* text=auto
+
+# 2. Source code files (Force LF)
+*.cs text eol=lf diff=csharp
+*.cshtml text eol=lf
+*.razor text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+*.ts text eol=lf
+*.json text eol=lf
+*.sh text eol=lf
+*.cmd text eol=crlf
+*.bat text eol=crlf
+
+# 3. Solution and Project files
+*.sln text eol=crlf
+*.slnx text eol=lf
+*.csproj text eol=lf
+*.props text eol=lf
+*.targets text eol=lf
+
+# 4. Common Binary Files of .NET
+*.dll binary
+*.pdb binary
+*.exe binary
+
+# 5. Optimization of Code Review (Ignore automatically generated code in GitHub/GitLab)
+*.designer.cs linguist-generated=true
+*.g.cs linguist-generated=true
+*.AssemblyAttributes.cs linguist-generated=true
+
+# 6. Export Rules (git archive)
+/.editorconfig export-ignore
+/.gitattributes export-ignore
+/.gitignore export-ignore
+/.github export-ignore
+/.images export-ignore
