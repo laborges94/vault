@@ -41,6 +41,17 @@ All implementations must strictly comply with the repository's coding convention
 
 ---
 
-## 5. Amendments
+## 5. Security & Cryptographic Invariants
+
+Because Vault manages confidential secrets, cryptographic integrity and data protection are paramount:
+
+1. **Zero Plaintext Exposure**: Unencrypted secret values must never be written to logs, console output, crash dumps, or telemetry. Exceptions and error messages must never include secret values or keys.
+2. **Modern Audited Cryptography**: Use only standard, audited cryptographic primitives. Master key derivation must use modern memory-hard functions (Argon2id). Symmetric encryption must use authenticated encryption schemes (AES-256-GCM). Custom cryptographic algorithms are strictly forbidden.
+3. **Zero-Knowledge Storage**: The vault persistence format must only store authenticated ciphertexts, nonces, and cryptographic salts. No plaintext secrets or master keys may ever be persisted.
+4. **Memory Hygiene**: Memory buffers holding plaintext secret material, derived keys, or passphrases must be treated defensively and cleared (e.g., via `CryptographicOperations.ZeroMemory`) immediately after use.
+
+---
+
+## 6. Amendments
 
 This constitution serves as a long-term contract. It should only be updated when making fundamental architectural shifts that affect the entire project lifecycle.
