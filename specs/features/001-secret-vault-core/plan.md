@@ -179,44 +179,44 @@ Ordered, atomic task checklist adhering to Test-Driven Development (TDD) princip
   - [x] Create `IAeadEncryptionService` and `AesGcmEncryptionService` supporting AES-256-GCM with Additional Authenticated Data (AAD).
   - [x] Write unit tests for Argon2id key derivation, AES-GCM encryption/decryption, tamper detection on bit flips, and buffer memory zeroing.
 
-- [ ] **Task 4: Binary Vault Container Header & Atomic Storage**
-  - [ ] Implement `VaultHeader` reading and writing the binary specification (`VAULT`, version, salt, Argon2 params, nonce, tag, AAD generation).
-  - [ ] Implement `IVaultStorage` and `FileVaultStorage` supporting atomic writes (`<file>.tmp.<guid>` -> `File.Move`), file locking with 3s timeout, and corruption detection.
-  - [ ] Write unit tests for header serialization/deserialization, corrupted file rejection, atomic swap, and lock contention handling.
+- [x] **Task 4: Binary Vault Container Header & Atomic Storage**
+  - [x] Implement `VaultHeader` reading and writing the binary specification (`VAULT`, version, salt, Argon2 params, nonce, tag, AAD generation).
+  - [x] Implement `IVaultStorage` and `FileVaultStorage` supporting atomic writes (`<file>.tmp.<guid>` -> `File.Move`), file locking with 3s timeout, and corruption detection.
+  - [x] Write unit tests for header serialization/deserialization, corrupted file rejection, atomic swap, and lock contention handling.
 
-- [ ] **Task 5: Vault Application Service (CRUD & Namespaces)**
-  - [ ] Implement `IVaultService` and `VaultService` handling `InitAsync`, `SetSecretAsync`, `GetSecretAsync`, `ListSecretsAsync`, and `DeleteSecretAsync`.
-  - [ ] Implement environment namespacing (`--env <name>`) and custom exceptions (`VaultNotFoundException`, `SecretNotFoundException`, `AuthenticationFailedException`).
-  - [ ] Write unit tests asserting full secret lifecycle, multiple environments isolation, and error handling.
+- [x] **Task 5: Vault Application Service (CRUD & Namespaces)**
+  - [x] Implement `IVaultService` and `VaultService` handling `InitAsync`, `SetSecretAsync`, `GetSecretAsync`, `ListSecretsAsync`, and `DeleteSecretAsync`.
+  - [x] Implement environment namespacing (`--env <name>`) and custom exceptions (`VaultNotFoundException`, `SecretNotFoundException`, `AuthenticationFailedException`).
+  - [x] Write unit tests asserting full secret lifecycle, multiple environments isolation, and error handling.
 
-- [ ] **Task 6: `.env` File Parsing & Synchronization (`push` & `pull`)**
-  - [ ] Implement `DotEnvParser` supporting comments (`#`), blank lines, quoted values, and duplicate key warnings with last-write-wins resolution.
-  - [ ] Integrate `.env` push and pull into `VaultService`.
-  - [ ] Write unit tests asserting proper parsing of various `.env` formats, roundtripping, and duplicate key handling.
+- [x] **Task 6: `.env` File Parsing & Synchronization (`push` & `pull`)**
+  - [x] Implement `DotEnvParser` supporting comments (`#`), blank lines, quoted values, and duplicate key warnings with last-write-wins resolution.
+  - [x] Integrate `.env` push and pull into `VaultService`.
+  - [x] Write unit tests asserting proper parsing of various `.env` formats, roundtripping, and duplicate key handling.
 
-- [ ] **Task 7: Process Injection (`vault run`)**
-  - [ ] Implement `IProcessRunner` and `ProcessRunner` launching child processes with decrypted secrets injected into environment variables.
-  - [ ] Handle stdio forwarding, exit code forwarding, `CancellationToken` cancellation, and memory buffer sanitization.
-  - [ ] Write tests verifying environment variable inheritance and process exit code propagation without writing secrets to disk.
+- [x] **Task 7: Process Injection (`vault run`)**
+  - [x] Implement `IProcessRunner` and `ProcessRunner` launching child processes with decrypted secrets injected into environment variables.
+  - [x] Handle stdio forwarding, exit code forwarding, `CancellationToken` cancellation, and memory buffer sanitization.
+  - [x] Write tests verifying environment variable inheritance and process exit code propagation without writing secrets to disk.
 
-- [ ] **Task 8: Ephemeral Secret Sharing & Envelope Consumption**
-  - [ ] Implement `SharingEnvelope` data layout, Base64URL encoding, and key separation.
-  - [ ] Implement `IEphemeralShareService` and `EphemeralShareService` with client-side TTL check (`CreatedAt + TTL > UtcNow`).
-  - [ ] Write unit tests asserting envelope creation, opening before TTL expiration, rejection of expired envelopes, and rejection of invalid keys.
+- [x] **Task 8: Ephemeral Secret Sharing & Envelope Consumption**
+  - [x] Implement `SharingEnvelope` data layout, Base64URL encoding, and key separation.
+  - [x] Implement `IEphemeralShareService` and `EphemeralShareService` with client-side TTL check (`CreatedAt + TTL > UtcNow`).
+  - [x] Write unit tests asserting envelope creation, opening before TTL expiration, rejection of expired envelopes, and rejection of invalid keys.
 
-- [ ] **Task 9: CLI Application Infrastructure & Passphrase Provider**
-  - [ ] Implement `IPassphraseProvider` and `PassphraseProvider` supporting non-interactive resolution (`VAULT_PASSPHRASE`, `--passphrase-stdin`, `--passphrase-file`) and interactive masked terminal input.
-  - [ ] Wire up command-line parsing using `System.CommandLine` in `Vault.Cli`.
-  - [ ] Implement `IConsoleFormatter` for structured output, tables, and raw output mode (`--raw`).
+- [x] **Task 9: CLI Application Infrastructure & Passphrase Provider**
+  - [x] Implement `IPassphraseProvider` and `PassphraseProvider` supporting non-interactive resolution (`VAULT_PASSPHRASE`, `--passphrase-stdin`, `--passphrase-file`) and interactive masked terminal input.
+  - [x] Wire up command-line parsing using `System.CommandLine` in `Vault.Cli`.
+  - [x] Implement `IConsoleFormatter` for structured output, tables, and raw output mode (`--raw`).
 
-- [ ] **Task 10: CLI Command Handlers**
-  - [ ] Implement commands: `init`, `set`, `get`, `list`, `delete`.
-  - [ ] Implement environment commands: `env push`, `env pull`.
-  - [ ] Implement execution command: `run`.
-  - [ ] Implement sharing commands: `share`, `open`.
-  - [ ] Write functional tests verifying command parsing, non-interactive piping, raw output, and exit codes.
+- [x] **Task 10: CLI Command Handlers**
+  - [x] Implement commands: `init`, `set`, `get`, `list`, `delete`.
+  - [x] Implement environment commands: `env push`, `env pull`.
+  - [x] Implement execution command: `run`.
+  - [x] Implement sharing commands: `share`, `open`.
+  - [x] Write functional tests verifying command parsing, non-interactive piping, raw output, and exit codes.
 
-- [ ] **Task 11: End-to-End Verification & Documentation Alignment**
-  - [ ] Run full automated test suite across all projects (`dotnet test`).
-  - [ ] Verify all scenarios from `specs/features/001-secret-vault-core/spec.md` (Scenario 1 through 6).
-  - [ ] Check and update [README.md](../../README.md) to ensure synchronization with implemented CLI commands, prerequisites, and project structure.
+- [x] **Task 11: End-to-End Verification & Documentation Alignment**
+  - [x] Run full automated test suite across all projects (`dotnet test`).
+  - [x] Verify all scenarios from `specs/features/001-secret-vault-core/spec.md` (Scenario 1 through 6).
+  - [x] Check and update [README.md](../../README.md) to ensure synchronization with implemented CLI commands, prerequisites, and project structure.

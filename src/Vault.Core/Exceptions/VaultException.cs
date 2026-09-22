@@ -43,6 +43,20 @@ public class VaultAuthenticationException : VaultException
 }
 
 /// <summary>
+/// Alias for VaultAuthenticationException, thrown when master passphrase verification fails.
+/// </summary>
+public class AuthenticationFailedException : VaultAuthenticationException
+{
+    public AuthenticationFailedException(string message) : base(message)
+    {
+    }
+
+    public AuthenticationFailedException(string message, Exception innerException) : base(message, innerException)
+    {
+    }
+}
+
+/// <summary>
 /// Thrown when a vault container file is corrupted, truncated, or has an invalid format.
 /// </summary>
 public class VaultCorruptedException : VaultException
@@ -83,3 +97,33 @@ public class SecretNotFoundException : VaultException
     {
     }
 }
+
+/// <summary>
+/// Thrown when the vault file is locked by another process and cannot be accessed within the timeout window.
+/// </summary>
+public class VaultFileLockedException : VaultException
+{
+    public VaultFileLockedException(string message) : base(message)
+    {
+    }
+
+    public VaultFileLockedException(string message, Exception innerException) : base(message, innerException)
+    {
+    }
+}
+
+/// <summary>
+/// Thrown when an ephemeral secret sharing envelope has passed its time-to-live (TTL).
+/// </summary>
+public class VaultExpiredException : VaultException
+{
+    public VaultExpiredException(string message) : base(message)
+    {
+    }
+
+    public VaultExpiredException(string message, Exception innerException) : base(message, innerException)
+    {
+    }
+}
+
+

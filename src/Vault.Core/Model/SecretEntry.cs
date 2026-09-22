@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace Vault.Core.Model;
 
 /// <summary>
@@ -11,17 +13,18 @@ public sealed record SecretEntry
     public DateTimeOffset UpdatedAt { get; init; }
     public DateTimeOffset? ExpiresAt { get; init; }
 
+    [JsonConstructor]
     public SecretEntry(
         string value,
         string? description = null,
         IReadOnlyList<string>? tags = null,
-        DateTimeOffset? updatedAt = null,
+        DateTimeOffset updatedAt = default,
         DateTimeOffset? expiresAt = null)
     {
         Value = value ?? throw new ArgumentNullException(nameof(value));
         Description = description;
         Tags = tags ?? Array.Empty<string>();
-        UpdatedAt = updatedAt ?? DateTimeOffset.UtcNow;
+        UpdatedAt = updatedAt == default ? DateTimeOffset.UtcNow : updatedAt;
         ExpiresAt = expiresAt;
     }
 }

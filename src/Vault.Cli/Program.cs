@@ -1,2 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+using Vault.Cli;
+
+var app = new VaultCliApp();
+return await app.RunAsync(args);

@@ -50,6 +50,97 @@ dotnet test
 
 ---
 
+## 💻 CLI Usage
+
+### Initializing a Vault
+
+```bash
+# Initialize a new encrypted container (default: .vault.enc)
+vault init
+
+# Specify a custom vault path
+vault init ./secrets/app.vault.enc
+```
+
+### Managing Secrets (CRUD)
+
+```bash
+# Store or update a secret
+vault set DB_PASSWORD "s3cur3P@ssw0rd!"
+
+# Store secret in a specific environment namespace
+vault set API_KEY "prod-secret-token" --env production --description "Production API Key" --tags "api,auth"
+
+# Retrieve secret (standard formatted)
+vault get DB_PASSWORD
+
+# Retrieve raw secret value (useful for piping / scripting)
+vault get DB_PASSWORD --raw
+
+# List secrets in default environment
+vault list
+
+# List secrets across all environments
+vault list --all-envs
+
+# Delete a secret
+vault delete DB_PASSWORD --force
+```
+
+### Environment File (`.env`) Synchronization
+
+```bash
+# Import key-value pairs from .env into vault
+vault env push .env
+
+# Export vault secrets to a .env file
+vault env pull .env --force
+```
+
+### Process Injection (`vault run`)
+
+Inject decrypted secrets directly into child process memory without creating unencrypted files on disk:
+
+```bash
+vault run --env production -- dotnet run
+```
+
+### Ephemeral Secret Sharing
+
+Encrypt sensitive credentials into self-contained, TTL-bounded envelopes for secure sharing via chat or email:
+
+```bash
+# Create an ephemeral share (default TTL: 15m)
+vault share DB_PASSWORD --ttl 1h
+
+# Or share a raw value directly
+vault share --value "one-time-token" --ttl 30m
+
+# Recipient consumes the envelope using the provided key
+vault open <envelope> --key <decryption-key>
+
+# Or with combined token fragment
+vault open <envelope>#<decryption-key> --raw
+```
+
+### Non-Interactive Authentication (CI/CD & Scripts)
+
+Passphrases can be supplied non-interactively via environment variable, stdin, or file:
+
+```bash
+# Via environment variable
+export VAULT_PASSPHRASE="your-master-passphrase"
+vault get DB_PASSWORD --raw
+
+# Via standard input
+echo "your-master-passphrase" | vault get DB_PASSWORD --passphrase-stdin
+
+# Via passphrase file
+vault get DB_PASSWORD --passphrase-file /path/to/keyfile
+```
+
+---
+
 ## 📂 Project Structure
 
 ```
